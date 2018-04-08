@@ -1,0 +1,64 @@
+"""
+简单金融知识：
+爆仓：输掉了所有的钱
+支撑位：价格跌倒一定程度反弹了，这个点成为支撑位（阻力位则相反）
+保证金：第三方资金
+T+0：今天买今天卖
+
+金融决策系统：辅助据侧着通过数据、模型和只是，以人机交互方式进行半结构化或非结构化决策的计算机应用系统
+金融智能决策系统：人工智能和DSS结合应用专家领域技术，使DSS能够更充分应用人类的只是，通过逻辑推理决策
+金融时间序列分析技术：
+特点：尖峰后尾（实际分布中靠近均值的天数更多，极端收益率出现的频率高于正态分布的预测）；异方差（方差会因为时间的改变而改变，甚至随意改变并且不可控）
+      波动聚集性（时间尺度更短的情况下，波动情况的特征）；杠杆效应
+"""
+
+"""
+逻辑回归对涨跌进行预测
+例如特征：w1x1(前五日均线)+w2x2(k的增幅) = Y(下一次的K)
+"""
+
+#coding:utf-8
+import pandas as pd
+import numpy as np
+import sys
+
+drop_rows = 5
+data = pd.read_csv(文件名称)
+
+# 增加一列索引号是0，默认值是1
+X = data.iloc[:,[1,4,5]].values
+b = np.ones(len(X))
+X = np.insert(X,0,values=b,sxis=1)
+
+# 计算前三周差值，存入[0]列
+for i in range(len(X)):
+    if i<drop_rows:
+        continue
+    X[:,0][i] = (X[:,2][i-drop_rows:i+1]).mean() - X[:,2][i]
+    
+# 计算本周的差值存入[1]列
+X[:,1] = Z[:,1] = X[:,2]
+# 计算下周差值，存入[2]列
+for i in range(len(X)):
+    if i<drop_rows:
+        continue
+    if i == len(X) - 1:
+        break
+    X[:,2][i] = X[:,1][i+1]
+    
+# 计算标签值，存入列[3]
+for i in range(len(X)):
+    if i<drop_rows:
+        continue
+    if i == len(X)-1:
+        break
+    if X[:2][i] > 0:
+        X[:,3][i] = 0
+    else:
+        X[:,3][i] = 1
+        
+for i in X:
+    print(i)
+    
+np.savetxte('gweek_n.csv',X,fmt='%f,%f,%f,%d')
+        
