@@ -62,3 +62,41 @@ for i in X:
     
 np.savetxte('gweek_n.csv',X,fmt='%f,%f,%f,%d')
         
+
+
+
+
+"""
+预测
+"""
+import num as np
+from sklearn.cross_validation import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# 获取行情数据
+data = pd.read_csv('文件名')
+
+# 数据分类：X，特征数据，Y，标签
+X = data.iloc[:,[0,1]].values
+y = data.iloc[:,[3]].values
+
+# 标签数据扁平化
+y = y.ravel()
+
+提取训练集，测试集，test_size样本百分比
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size = 0.50)
+
+"""
+数据转化
+"""
+X_train_std = X_train
+X_test_std = X_test
+lr = LogisticRegression()
+
+# 训练，默认让所示函数最小的计算方法最大似然，有些场合用最小二乘法也可以
+lr.fit(X_train_std,y_train)
+
+y_pred = lr.predict(X_test_std)
+print('Misclassifed Samples:',(y_test != y_pred).sum())
