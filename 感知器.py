@@ -109,3 +109,4 @@ def plot_decision_regions(x,y,classifier,resolution=0.02):
 
 plot_decision_regions(x,y,ppn,resolution=0.02)
 
+# 适用于样本为可分割样本空间的数集，例如0-1分布
