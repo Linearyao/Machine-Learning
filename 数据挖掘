@@ -1,0 +1,39 @@
+
+# coding: utf-8
+
+# In[ ]:
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+fig = plt.figure()
+ax = Axes3D(fig)
+X = np.linspace(0.01,0.99,101)
+Y = np.linspace(0.01,0.99,101)
+X,Y = np.meshgrid(X,Y)
+Z = -X * np.log2(Y) - (1-X) * np.log2(1 - Y)
+ax.plot_surface(X,Y,Z,rstride=1,cstride=1,cmap='rainbow')
+plt.show()
+
+
+# In[5]:
+
+
+from sklearn import datasets
+iris = datasets.load_iris()
+digits = datasets.load_digits()
+# print (digits.data)
+print(type(digits.data))
+(/以上为确认安装Numpy库)
+
+
+# In[8]:
+
+
+import networkx as nx
+G = nx.Graph()
+G.add_node(1)
+print(type(G))
+(/以上为确认Networkx已经安装并正常工作)
+
